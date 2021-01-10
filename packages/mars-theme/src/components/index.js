@@ -9,15 +9,15 @@ import Loading from "./loading";
 import Title from "./title";
 import PageError from "./page-error";
 import theme from './mui-theme';
-import Home from "./home";
+import Home from "./Home/Home";
 import Footer from "./Footer";
 import {pagesMap} from "../config";
-import Prestazioni from "./Prestazioni";
-import Doctors from "./Doctors";
+import Prestazioni from "./Prestazioni/Prestazioni";
+import Doctors from "./Doctors/Doctors";
 import Doctor from "./Doctors/Doctor";
-import PracticalInfo from "./PracticalInfo";
-import TuoTempo from "./TuoTempo";
-import Articles from "./Articles";
+import PracticalInfo from "./PracticalInfo/PracticalInfo";
+import TuoTempo from "./TuoTempo/TuoTempo";
+import Articles from "./Articles/Articles";
 
 /**
  * Theme is the root React component of our theme. The one we will export
