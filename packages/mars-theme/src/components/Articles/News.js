@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { connect, decode } from "frontity"
-import {getPostsGroupedByCategory} from "../../helpers";
+import Loading from "../loading";
 import {
     makeStyles,
     Grid,
@@ -46,15 +46,27 @@ const useStyles = makeStyles( {
 
 const NewsList = ({ state, libraries, actions }) => {
     const classes = useStyles();
-    const postsPerCategory = getPostsGroupedByCategory(state.source, state.theme.lang)
-    const featuredPosts = postsPerCategory.filter(item => [20, 22].includes(item.category.id))[0]
+    const [slideChunks, setSlideChunks] = useState(null)
 
     const chunkSize = 3;
 
-    const slideChunks = featuredPosts.posts.map((e, i) => i % chunkSize === 0 ?
-        featuredPosts.posts.slice(i, i + chunkSize) :
-        null
-    ).filter(el => el)
+    React.useEffect(() => {
+        async function fetchFeaturedNews() {
+            const response = await libraries.source.api.get({
+                endpoint: "posts",
+                params: { _embed: true, categories: state.theme.lang === 'it' ? "20" : "22", per_page: 20 },
+            });
+            const res = await libraries.source.populate({ response, state })
+
+            return res.map(({id}) => state.source.post[id])
+        }
+        fetchFeaturedNews().then(featuredPosts => {
+            setSlideChunks(featuredPosts.map((e, i) => i % chunkSize === 0 ?
+                featuredPosts.slice(i, i + chunkSize) :
+                null
+            ).filter(el => el))
+        })
+    }, [state.theme.lang]);
 
     const Html2React = libraries.html2react.Component;
 
@@ -62,7 +74,7 @@ const NewsList = ({ state, libraries, actions }) => {
         <div className={classes.wrapper}>
             <Typography align="center" variant="h1" style={{fontWeight: 'bold', marginBottom: '32px'}}>{translations(state.theme.lang, 'novita')}</Typography>
             <Grid container spacing={4}>
-                {slideChunks[0].map((info, index) => (
+                {slideChunks && slideChunks.length > 0 ? slideChunks[0].map((info, index) => (
                     <Grid key={info.id} item xs={12}>
                         <Card className={classes.root} style={{backgroundColor: index % 2 !== 0 && '#F6F9FC', flexDirection: index % 2 !== 0 && 'row-reverse'}}>
                             <CardContent classes={{root: classes.content}}>
@@ -82,12 +94,12 @@ const NewsList = ({ state, libraries, actions }) => {
                             {state.source.attachment[info["featured_media"]] && (
                                 <CardMedia
                                     className={classes.cover}
-                                    image={state.source.attachment[info["featured_media"]]['source_url']}
+                                    image={state.source.attachment[info["featured_media"]]['media_details']['sizes']['thumbnail']['source_url']}
                                 />
                             )}
                         </Card>
                     </Grid>
-                ))}
+                )) : <Loading />}
             </Grid>
         </div>
     )

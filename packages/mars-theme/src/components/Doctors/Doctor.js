@@ -12,6 +12,8 @@ const Doctor = ({ state, actions, libraries }) => {
     const post = state.source[data.type][data.id];
     const deps = departments(state.theme.lang).map(dep => dep[0]).filter(dep => post.categories.includes(dep))
 
+    console.log(post)
+
     const DepartmentChips = () => (
         <div style={{marginLeft: '-8px', marginBottom: '16px', width: 'calc(100% + 8px)'}}>
             {deps.map((value) => (

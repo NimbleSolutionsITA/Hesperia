@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import {
     Container,
     Typography,
@@ -10,6 +10,7 @@ import {connect} from "frontity";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import {pagesMap} from "../../config";
+import Loading from "../loading";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,23 +51,33 @@ const PracticalInfo = ({state, libraries}) => {
         const currentData = state.source.get(state.router.link)
         return state.source[currentData.type][currentData.id]
     }
+    const [practicalInfos, setPracticalInfos] = useState(null)
     const [expanded, setExpanded] = React.useState(!isMainpage && currentPage().id);
 
-    const practicalInfo = Object.values(state.source['practical_info']).filter(info => {
-        if(state.theme.lang === 'en')
-            return info.link.startsWith('/en/')
-        return !info.link.startsWith('/en/')
-    })
     const handleChange = (panel) => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
+
+    useEffect(() => {
+        async function fetchPracticalInfos() {
+            const response = await libraries.source.api.get({ endpoint: "practical_info", params: {_embed: true, per_page: 50} })
+            await libraries.source.populate({ response, state })
+
+            return Object.values(state.source['practical_info']).filter(info => {
+                if(state.theme.lang === 'en')
+                    return info.polylang_current_lang === "en_GB"
+                return info.polylang_current_lang === "it_IT"
+            })
+        }
+        fetchPracticalInfos().then(resInfos => setPracticalInfos(resInfos))
+    }, [state.theme.lang]);
 
     return (
         <Container>
             <Typography style={{fontWeight: 'bold', textAlign: 'center', margin: '64px 0 32px'}} variant="h1">{post.title.rendered}</Typography>
             <Html2React html={post.content.rendered}/>
             <div style={{margin: '32px 0'}}>
-                {practicalInfo.map(service => (
+                {practicalInfos ? practicalInfos.map(service => (
                     <Accordion key={service.id} square classes={{root: classes.accordion}} expanded={expanded === service.id} onChange={handleChange(service.id)}>
                         <AccordionSummary
                             expandIcon={<ExpandMoreIcon color="secondary" />}
@@ -81,7 +92,7 @@ const PracticalInfo = ({state, libraries}) => {
                             <Html2React html={service.content.rendered} />
                         </AccordionDetails>
                     </Accordion>
-                ))}
+                )) : <Loading />}
             </div>
         </Container>
     )

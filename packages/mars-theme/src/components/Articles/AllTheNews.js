@@ -1,23 +1,39 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from "frontity";
 import {Card, CardActionArea, CardContent, CardMedia, Chip, Grid, Typography} from "@material-ui/core";
 import StarsRoundedIcon from '@material-ui/icons/StarsRounded';
 import translations from "../../translations";
+import Loading from "../loading";
 
-const AllTheNews = ({state, actions}) => {
-    const data = Object.values(state.source.post).filter(post => post.categories.includes(state.theme.lang === 'it' ? 1 : 7));
-    const isFeatured = (post) => post.categories.includes(state.theme.lang === 'it' ? 27 : 29)
+const AllTheNews = ({state, actions, libraries}) => {
+    const isFeatured = (post) => post.categories.includes(state.theme.lang === 'it' ? '27' : '29')
+    const [allNews, setAllNews] = useState(null)
+
+    useEffect(() => {
+        async function fetchAllNews() {
+            const response = await libraries.source.api.get({
+                endpoint: "posts",
+                params: { _embed: true, categories: state.theme.lang === 'it' ? "1" : "7", per_page: 20 },
+            });
+            const res = await libraries.source.populate({ response, state })
+
+            console.log(res)
+
+            return res.map(({id}) => state.source.post[id])
+        }
+        fetchAllNews().then(cNews => setAllNews(cNews))
+    }, [state.theme.lang]);
 
     return (
         <div style={{padding: '32px 0'}}>
             <Typography align="center" variant="h1" style={{fontWeight: 'bold', marginBottom: '32px'}}>{translations(state.theme.lang, 'tutteLeNotizie')}</Typography>
             <Grid container spacing={4}>
-                {data.map(article => (
+                {allNews && allNews.length > 0 ? allNews.map(article => (
                     <Grid key={article.id} item xs={12} sm={6} md={4} lg={3}>
                         <Card elevation={0}>
                             <CardActionArea onClick={() => actions.router.set(article.link)}>
                                 <CardMedia
-                                    image={state.source.attachment[article["featured_media"]]['source_url']}
+                                    image={state.source.attachment[article["featured_media"]]['media_details']['sizes']['thumbnail']['source_url']}
                                     style={{height: '300px'}}
                                 />
                                 <CardContent>
@@ -42,7 +58,7 @@ const AllTheNews = ({state, actions}) => {
                             </CardActionArea>
                         </Card>
                     </Grid>
-                ))}
+                )) : <Loading />}
             </Grid>
         </div>
     )

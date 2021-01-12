@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import { connect, decode } from "frontity"
-import {getPostsGroupedByCategory} from "../../helpers";
 import {useSwipeable} from "react-swipeable"
 import {
     makeStyles,
@@ -16,6 +15,7 @@ import {
 import ArrowIcon from "../icons/Arrow";
 import translations from "../../translations";
 import PrenotaOra from "../PrenotaOra";
+import Loading from "../loading";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -56,15 +56,27 @@ const useStyles = makeStyles((theme) => ({
 const FeaturedSliderView = ({ state, libraries, actions }) => {
     const classes = useStyles();
     const [currentSlide, setCurrentSlide] = useState(0)
-    const postsPerCategory = getPostsGroupedByCategory(state.source, state.theme.lang)
-    const featuredPosts = postsPerCategory.filter(item => [27, 29].includes(item.category.id))[0]
+    const [slideChunks, setSlideChunks] = useState(null)
 
     const chunkSize = 2;
 
-    const slideChunks = featuredPosts.posts.map((e, i) => i % chunkSize === 0 ?
-        featuredPosts.posts.slice(i, i + chunkSize) :
-        null
-    ).filter(el => el)
+    React.useEffect(() => {
+        async function fetchFeaturedNews() {
+            const response = await libraries.source.api.get({
+                endpoint: "posts",
+                params: { _embed: true, categories: state.theme.lang === 'it' ? "27" : "29", per_page: 10 },
+            });
+            const res = await libraries.source.populate({ response, state })
+
+            return res.map(({id}) => state.source.post[id])
+        }
+        fetchFeaturedNews().then(featuredPosts => {
+            setSlideChunks(featuredPosts.map((e, i) => i % chunkSize === 0 ?
+                featuredPosts.slice(i, i + chunkSize) :
+                null
+            ).filter(el => el))
+        })
+    }, [state.theme.lang]);
 
     const Html2React = libraries.html2react.Component;
 
@@ -84,7 +96,7 @@ const FeaturedSliderView = ({ state, libraries, actions }) => {
         onSwipedRight: handleNextClick,
     });
 
-    return (
+    return slideChunks && slideChunks.length > 0 ? (
         <div {...swipeHandlers} className={classes.wrapper}>
             <Typography align="center" variant="h1" style={{fontWeight: 'bold', marginBottom: '32px'}}>{translations(state.theme.lang, 'inPrimoPiano')}</Typography>
             <Grid container spacing={4}>
@@ -107,7 +119,7 @@ const FeaturedSliderView = ({ state, libraries, actions }) => {
                             </CardContent>
                             <CardMedia
                                 className={classes.cover}
-                                image={state.source.attachment[info["featured_media"]]['source_url']}
+                                image={state.source.attachment[info["featured_media"]]['media_details']['sizes']['thumbnail']['source_url']}
                             />
                         </Card>
                     </Grid>
@@ -122,7 +134,7 @@ const FeaturedSliderView = ({ state, libraries, actions }) => {
                 </div>
             </Hidden>
         </div>
-    )
+    ) : <Loading />
 }
 
 export default connect(FeaturedSliderView)

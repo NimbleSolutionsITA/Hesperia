@@ -38,22 +38,7 @@ const marsTheme = {
   actions: {
     theme: {
       beforeSSR: async ({ actions, state }) => {
-        await actions.source.fetch(pagesMap[1][state.theme.lang][1])
-        await actions.source.fetch(pagesMap[2][state.theme.lang][1])
-        await actions.source.fetch(`/practical_info/`)
-        await actions.source.fetch(`/services/`)
-        const getServices = state.source.get('/services/')
-        getServices.totalPages > 1 && await actions.source.fetch(`/services/page/2/`)
-        getServices.totalPages > 2 && await actions.source.fetch(`/services/page/3/`)
-        await actions.source.fetch(pagesMap[8][state.theme.lang][1])
-        await actions.source.fetch(`/doctors/`)
-        const getDoctors = state.source.get('/doctors/')
-        getDoctors.totalPages > 1 && await actions.source.fetch(`/doctors/page/2/`)
-        getDoctors.totalPages > 2 && await actions.source.fetch(`/doctors/page/3/`)
-        await Promise.all(
-            Object.values(categories(state.theme.lang))
-                .map(category => actions.source.fetch(`/category/${category}`))
-        )
+
       },
       toggleLanguage: ({ state, actions }) => {
         const otherPage = state.theme.currentPage ?

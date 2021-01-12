@@ -2,7 +2,7 @@ const settings = {
   name: "hesperia",
   state: {
     frontity: {
-      url: "https://nimble-lab.com",
+      url: "http://localhost:3005",
       title: "Hesperia Hospital",
       description: "WordPress installation for Frontity development"
     }
@@ -25,9 +25,6 @@ const settings = {
         source: {
           url: "https://wp.nimble-lab.com",
           homepage: "/inizio",
-          params: {
-            per_page: 100,
-          },
           postTypes: [
             {
               type: "practical_info",

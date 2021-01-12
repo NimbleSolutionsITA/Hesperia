@@ -18,6 +18,7 @@ import Doctor from "./Doctors/Doctor";
 import PracticalInfo from "./PracticalInfo/PracticalInfo";
 import TuoTempo from "./TuoTempo/TuoTempo";
 import Articles from "./Articles/Articles";
+import Prestazione from "./Prestazioni/Prestazione";
 
 /**
  * Theme is the root React component of our theme. The one we will export
@@ -58,11 +59,8 @@ const Theme = ({ state }) => {
               <Switch>
                   <Loading when={data.isFetching} />
                   <Home when={data.isPostType && state.router.link === pagesMap[0][language][1]} />
-                  <Prestazioni when={data.isPostType && (
-                      state.router.link === pagesMap[1][language][1] ||
-                      state.router.link === pagesMap[2][language][1] ||
-                      data.type === 'services'
-                  )}/>
+                  <Prestazioni when={state.router.link === pagesMap[1][language][1] || state.router.link === pagesMap[2][language][1]}/>
+                  <Prestazione when={data.isServices} />
                   <Doctors when={data.isPostType && state.router.link === pagesMap[6][language][1]}/>
                   <Doctor when={data.isPostType && data.type === 'doctors'}/>
                   <PracticalInfo when={data.isPostType && (

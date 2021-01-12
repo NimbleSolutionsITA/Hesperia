@@ -139,6 +139,20 @@ export const categories = (lang) => {
     }
 }
 
+export const newsCategories = (lang) => {
+    switch (lang) {
+        case 'en':
+            return [7, 29, 22]
+        case 'it':
+            return [1, 20, 27]
+        default:
+            return [
+                ...newsCategories('it'),
+                ...newsCategories('en')
+            ]
+    }
+}
+
 export const departments = (lang) => {
     switch (lang) {
         case 'en':
