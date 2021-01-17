@@ -22,9 +22,6 @@ const AllTheNews = ({
                 params: { _embed: true, categories: categories[state.theme.lang], per_page: 20 },
             });
             const res = await libraries.source.populate({ response, state })
-
-            console.log(res)
-
             return res.map(({id}) => state.source.post[id])
         }
         fetchAllNews().then(cNews => setAllNews(cNews))

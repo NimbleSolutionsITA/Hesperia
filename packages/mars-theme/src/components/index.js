@@ -19,6 +19,7 @@ import PracticalInfo from "./PracticalInfo/PracticalInfo";
 import TuoTempo from "./TuoTempo/TuoTempo";
 import Articles from "./Articles/Articles";
 import Prestazione from "./Prestazioni/Prestazione";
+import WorkWithUs from "./Articles/WorkWithUs";
 
 /**
  * Theme is the root React component of our theme. The one we will export
@@ -68,6 +69,7 @@ const Theme = ({ state }) => {
                       data.type === 'practical_info'
                   )}/>
                   <Articles when={state.router.link === pagesMap[5][language][1]} />
+                  <WorkWithUs when={state.router.link === pagesMap[14][language][1]} />
                   <List when={data.isArchive} />
                   <Post when={data.isPostType} />
                   <PageError when={data.isError} />

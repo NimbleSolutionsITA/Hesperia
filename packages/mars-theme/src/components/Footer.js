@@ -68,7 +68,7 @@ const Footer = ({ state, actions }) => {
                     </Grid>
                 </Grid>
                 <Button style={{padding: 0, color: '#FFFFFF', marginBottom: '16px 0 8px'}} onClick={() => actions.router.set(pagesMap[11][state.theme.lang][1])}>{pagesMap[11][state.theme.lang][0]}</Button>
-                <Typography variant="body2">Hesperia Hospital S.p.a   |   P.IVA e C.F. 01049620360   |   REA MO 210368   |   Cap.Soc. € 120.000,00   |   Società soggetta all'attività di direzione e coordinamento di Garofalo Health Care S.p.A</Typography>
+                <Typography variant="body2">Hesperia Hospital S.r.l   |   P.IVA e C.F. 01049620360   |   REA MO 210368   |   Cap.Soc. € 120.000,00   |   Società soggetta all'attività di direzione e coordinamento di Garofalo Health Care S.p.A</Typography>
             </Container>
         </div>
     )
