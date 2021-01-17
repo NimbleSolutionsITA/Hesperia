@@ -8,6 +8,8 @@ import NewsList from "../Articles/News";
 import HowToBox from "./HowToBox";
 import BottomBoxes from "./BottomBoxes";
 import {pagesMap} from "../../config";
+import AllTheNews from "../Articles/AllTheNews";
+import translations from "../../translations";
 
 const Home = ({ state, actions, libraries }) => {
     const data = state.source.get(state.router.link);
@@ -52,10 +54,8 @@ const Home = ({ state, actions, libraries }) => {
                     Html2React={Html2React}
                 />
             </Container>
-            <PracticalInfoSliderView style={{marginTop: '32px'}} />
             <Container>
-                <FeaturedSliderView />
-                <NewsList />
+                <AllTheNews title={translations(state.theme.lang, 'inPrimoPiano')} categories={{it: "158", en: "160"}} />
                 <div style={{margin: '32px', textAlign: 'center'}}>
                     <Button
                         onClick={() => actions.router.set(pagesMap[5][state.theme.lang][1])}

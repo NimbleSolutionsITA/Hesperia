@@ -5,15 +5,21 @@ import StarsRoundedIcon from '@material-ui/icons/StarsRounded';
 import translations from "../../translations";
 import Loading from "../loading";
 
-const AllTheNews = ({state, actions, libraries}) => {
-    const isFeatured = (post) => post.categories.includes(state.theme.lang === 'it' ? '27' : '29')
+const AllTheNews = ({
+    state,
+    actions,
+    libraries,
+    categories = {it: "1", en: "7"},
+    title = translations(state.theme.lang, 'tutteLeNotizie')
+}) => {
+    const isFeatured = (post) => post.categories.includes(state.theme.lang === 'it' ? "27" : "29")
     const [allNews, setAllNews] = useState(null)
 
     useEffect(() => {
         async function fetchAllNews() {
             const response = await libraries.source.api.get({
                 endpoint: "posts",
-                params: { _embed: true, categories: state.theme.lang === 'it' ? "1" : "7", per_page: 20 },
+                params: { _embed: true, categories: categories[state.theme.lang], per_page: 20 },
             });
             const res = await libraries.source.populate({ response, state })
 
@@ -26,7 +32,7 @@ const AllTheNews = ({state, actions, libraries}) => {
 
     return (
         <div style={{padding: '32px 0'}}>
-            <Typography align="center" variant="h1" style={{fontWeight: 'bold', marginBottom: '32px'}}>{translations(state.theme.lang, 'tutteLeNotizie')}</Typography>
+            <Typography align="center" variant="h1" style={{fontWeight: 'bold', marginBottom: '32px'}}>{title}</Typography>
             <Grid container spacing={4}>
                 {allNews && allNews.length > 0 ? allNews.map(article => (
                     <Grid key={article.id} item xs={12} sm={6} md={4} lg={3}>

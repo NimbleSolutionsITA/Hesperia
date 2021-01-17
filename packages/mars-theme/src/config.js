@@ -4,11 +4,11 @@ export const pagesMap = [
         en: ["Start", "/en/start/"],
     },
     { //1
-        it: ["Prestazioni Ambulatoriali", "/prestazioni-ambulatoriali/"],
+        it: ["Attività Ambulatoriali", "/prestazioni-ambulatoriali/"],
         en: ["Outpatient Services", "/en/outpatient-services/"],
     },
     { //2
-        it: ["Prestazioni con ricovero", "/prestazioni-con-ricovero/"],
+        it: ["Attività di ricovero (U.O.)", "/prestazioni-con-ricovero/"],
         en: ["Hospitalisation", "/en/hospitalisation/"],
     },
     { //3
@@ -20,8 +20,8 @@ export const pagesMap = [
         en: ["Servizi diagnostici", "/en/services/image-diagnostics-service/"],
     },
     { //5
-        it: ["Tutte le notizie", "/tutte-le-notizie/"],
-        en: ["All the news", "/en/all-the-news/"],
+        it: ["News", "/tutte-le-notizie/"],
+        en: ["News", "/en/all-the-news/"],
     },
     { //6
         it: ["I nostri medici", "/i-nostri-medici/"],
@@ -32,7 +32,7 @@ export const pagesMap = [
         en: ["Insurance agreements", "/en/insurance-agreements/"],
     },
     { //8
-        it: ["Info pratiche", "/info-pratiche/"],
+        it: ["Informazioni utili", "/info-pratiche/"],
         en: ["Practical infos", "/en/practical-infos/"],
     },
     { //9
@@ -68,8 +68,8 @@ export const pagesMap = [
         en: ["Quality & Commitments", "/en/quality-commitments/"],
     },
     { //17
-        it: ["Hesperia Capri", "/hesperia-capri/"],
-        en: ["Hesperia Capri", "/en/hesperia-capri-en/"],
+        it: ["Hesperia Carpi", "/hesperia-carpi/"],
+        en: ["Hesperia Carpi", "/en/hesperia-carpi-en/"],
     },
     { //18
         it: ["Progetti di ricerca", "/progetti-di-ricerca/"],
@@ -90,16 +90,17 @@ export const pagesMap = [
 ]
 
 export const mainMenu = (lang) => [
-    pagesMap[0][lang],
-    [lang === 'it' ? "Cosa Facciamo" : "What we do", [
-        pagesMap[1][lang],
-        pagesMap[2][lang],
-        // pagesMap[3][lang],
-        pagesMap[4][lang],
+    [lang === 'it' ? "Chi Siamo" : "About Us", [
+        pagesMap[15][lang],
+        pagesMap[12][lang],
+        pagesMap[16][lang],
+        pagesMap[18][lang],
     ]],
-    pagesMap[6][lang],
-    pagesMap[7][lang],
-    pagesMap[8][lang]
+    pagesMap[1][lang],
+    pagesMap[2][lang],
+    pagesMap[8][lang],
+    pagesMap[5][lang],
+    pagesMap[14][lang],
 ]
 
 export const footerMenu = (lang) => [

@@ -4,6 +4,7 @@ import {Container, Grid, Typography, makeStyles, Button} from "@material-ui/core
 import logoGHCW from "../../assets/logo-GHC-W.png";
 import logoHH from "../../assets/logoHHfooter.png";
 import {pagesMap} from "../config";
+import translations from "../translations";
 
 const useStyles = makeStyles((theme) => ({
     containerWrapper: {
@@ -57,11 +58,11 @@ const Footer = ({ state, actions }) => {
                     ))}
                     <Grid item xs={12} md={3} style={{borderLeft: '1px solid #FFFFFF'}}>
                         <Typography variant="body2" style={{paddingLeft: '16px'}}>
-                            Via Arquà 80/A - 41125 Modena<br />
-                            Centralino (numero unico): <b>059-449.111</b><br />
-                            Fax Centralino: <b>059-394.840</b><br />
-                            Prenotazione visite: <b>centralinovisite@hesperia.it</b><br />
-                            Richiest cartelle cliniche: <b>fatturazione@hesperia.it</b><br />
+                            Via Arquà 80 - 41125 Modena<br />
+                            {translations(state.theme.lang, 'centralino')}: <b>059-449.111</b><br />
+                            {translations(state.theme.lang, 'fax')}: <b>059-394.840</b><br />
+                            {translations(state.theme.lang, 'prenotazioneVisite')}: <b>centralinovisite@hesperia.it</b><br />
+                            {translations(state.theme.lang, 'richiesta')}: <b>fatturazione@hesperia.it</b><br />
                             PEC: <b>direzionegenerale@pec.hesperia.it</b>
                         </Typography>
                     </Grid>

@@ -1,9 +1,10 @@
 const translations = (lang, key) => {
     const dictionary = {
+        eccellenze: ['Eccellenze', "Excellence"],
         novita: ['Novità', "What's new"],
         aperto24: ['Aperto 24/24', "Open 24/24"],
         scopriDiPiu: ['Scopri di più', 'Read more'],
-        inPrimoPiano: ['In primo piano', 'Featured'],
+        inPrimoPiano: ['Primo piano', 'Featured'],
         comeArrivare: ['come arrivare', 'ho to get there'],
         prenotaOra: ['Prenota ora', 'Book now'],
         prenotareUnaVisita: ['Prenotare una visita', 'Book a visit'],
@@ -21,7 +22,11 @@ const translations = (lang, key) => {
         descrizione: [
             'Ospedale polispecialistico accreditato con il Servizio Sanitario Nazionale per le attività ambulatoriali e di ricovero.',
             'Multi-specialized hospital accredited by the National Health Service for outpatient activity and hospitalization.'
-        ]
+        ],
+        centralino: ['Centralino (numero unico)', 'Contact Center (unique number)'],
+        prenotazioneVisite: ['Prenotazione visite', 'Book a visit'],
+        fax: ['Fax Centralino', 'Fax Contact Center'],
+        richiesta: ['Richiesta cartelle cliniche', 'Request for medical records'],
     }
     switch (lang) {
         case 'en':

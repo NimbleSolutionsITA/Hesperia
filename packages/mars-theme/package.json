@@ -1,24 +1,32 @@
 {
-  "name": "@frontity/mars-theme",
-  "version": "1.4.4",
-  "description": "A starter theme for Frontity",
+  "name": "hesperia",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Frontity project",
   "keywords": [
-    "frontity",
-    "frontity-theme"
+    "frontity"
   ],
-  "homepage": "https://frontity.org",
-  "license": "Apache-2.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/frontity/frontity.git"
+  "engines": {
+    "node": ">=10.0.0",
+    "npm": ">=6.0.0"
   },
-  "bugs": {
-    "url": "https://community.frontity.org"
+  "scripts": {
+    "dev": "npx frontity dev",
+    "build": "npx frontity build",
+    "serve": "npx frontity serve"
   },
+  "prettier": {},
   "dependencies": {
-    "@frontity/components": "^1.6.0",
+    "@frontity/core": "^1.9.1",
     "@frontity/html2react": "^1.5.0",
-    "@material-ui/core": "^4.11.0",
-    "frontity": "^1.13.0"
+    "@frontity/mars-theme": "./packages/mars-theme",
+    "@frontity/tiny-router": "^1.2.3",
+    "@frontity/wp-source": "^1.10.0",
+    "@material-ui/core": "^4.11.2",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
+    "@n8tb1t/use-scroll-position": "^2.0.3",
+    "frontity": "^1.13.0",
+    "react-swipeable": "^6.0.1"
   }
 }

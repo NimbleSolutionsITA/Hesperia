@@ -5,7 +5,7 @@ import { Button, Menu, MenuItem, Hidden, makeStyles } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
     ItemWrapper: {
         display: 'flex',
-        margin: '0 20px',
+        margin: '0 16px',
         [theme.breakpoints.down('sm')]: {
             margin: '8px 0'
         }

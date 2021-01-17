@@ -2,7 +2,7 @@ const settings = {
   name: "hesperia",
   state: {
     frontity: {
-      url: "http://localhost:3005",
+      url: "http://localhost:3000",
       title: "Hesperia Hospital",
       description: "WordPress installation for Frontity development"
     }
