@@ -4,12 +4,12 @@ export const pagesMap = [
         en: ["Start", "/en/start/"],
     },
     { //1
-        it: ["Attività Ambulatoriali", "/prestazioni-ambulatoriali/"],
-        en: ["Outpatient Services", "/en/outpatient-services/"],
+        it: ["Cerca una prestazione", "/prestazioni-ambulatoriali/"],
+        en: ["Find a service", "/en/outpatient-services/"],
     },
     { //2
-        it: ["Attività di ricovero (U.O.)", "/prestazioni-con-ricovero/"],
-        en: ["Hospitalisation", "/en/hospitalisation/"],
+        it: ["Cerca una prestazione", "/prestazioni-con-ricovero/"],
+        en: ["Find a service", "/en/hospitalisation/"],
     },
     { //3
         it: ["Laboratorio analisi", "/laboratorio-analisi/"],
@@ -24,8 +24,8 @@ export const pagesMap = [
         en: ["News", "/en/all-the-news/"],
     },
     { //6
-        it: ["I nostri medici", "/i-nostri-medici/"],
-        en: ["Our doctors", "/en/our-doctors/"],
+        it: ["Cerca un medico", "/i-nostri-medici/"],
+        en: ["Find a doctor", "/en/our-doctors/"],
     },
     { //7
         it: ["Convenzioni", "/convenzioni/"],
@@ -96,8 +96,14 @@ export const mainMenu = (lang) => [
         pagesMap[16][lang],
         pagesMap[18][lang],
     ]],
-    pagesMap[1][lang],
-    pagesMap[2][lang],
+    [lang === 'it' ? "Attività Ambulatoriali" : "Outpatient Services", [
+        pagesMap[1][lang],
+        pagesMap[6][lang],
+    ]],
+    [lang === 'it' ? "Attività di ricovero (U.O.)" : "Hospitalisation", [
+        pagesMap[2][lang],
+        pagesMap[6][lang],
+    ]],
     pagesMap[8][lang],
     pagesMap[5][lang],
     pagesMap[14][lang],
