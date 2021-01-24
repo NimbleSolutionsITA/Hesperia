@@ -45,7 +45,7 @@ const WorkWithUs = ({state, libraries, actions}) => {
             <table style={{margin: '32px 0'}}>
                 <tbody>
                     {jobPosts ? jobPosts.map(jobPost => (
-                        <tr onClick={() => actions.router.set(jobPost.link)}>
+                        <tr onClick={() => actions.router.set(jobPost.link)} style={{cursor: 'pointer'}}>
                             <td width="50px"><JobPostIcon style={{fontSize: '50px'}} /></td>
                             <td>
                                 <Typography color="primary" variant="h4"><b>{jobPost.title.rendered}</b></Typography>
