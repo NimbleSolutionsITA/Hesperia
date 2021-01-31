@@ -35,9 +35,13 @@ const useStyles = makeStyles((theme) => ({
     },
     logoHH: {
         textAlign: 'center',
-        padding: '32px 0',
+        marginTop: '-32px',
+        paddingBottom: '16px',
         '& img': {
             height: '98px',
+        },
+        [theme.breakpoints.down('sm')]: {
+            marginTop: '-8px',
         }
     },
     bannerHomeImage: {
@@ -99,16 +103,40 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.down('sm')]: {
             float: 'right',
         }
+    },
+    homeBannerDescription: {
+        textAlign: 'left',
+        fontWeight: 'bold',
+        fontSize: '20px',
+        lineHeight: '32px',
+        padding: '36px 0 16px'
+    },
+    homeBannerPhone: {
+        backgroundColor: '#FFF',
+        color: theme.palette.primary.main,
+        padding: '2px 3px',
+        borderRadius: '50%',
+        marginRight: '16px'
+    },
+    homeBannerBox: {
+        zIndex: 1,
+        textAlign: 'center',
+        padding: '28px 0 48px',
+    },
+    homeBannerPhoneText: {
+        fontWeight: 'bold',
+        margin: '16px 0',
     }
 }));
 
-const Header = ({ state, actions }) => {
+const Header = ({ state, actions, libraries }) => {
     const classes = useStyles()
     const isHomepage= ['/', '/en/start/'].includes(state.router.link)
     const language = state.theme.lang;
     const [isNavBarTop, setIsNavBarTop] = useState(false)
     const [openMobileMenu, setOpenMobileMenu] = useState(false)
     const appBarRef = useRef()
+    const Html2React = libraries.html2react.Component;
 
     useScrollPosition(
         ({ currPos }) => setIsNavBarTop(-currPos.y >= appBarRef.current.offsetHeight),
@@ -146,32 +174,22 @@ const Header = ({ state, actions }) => {
                       <div className={classes.homeBannerWrapper}>
                           <Container>
                               <Grid container>
-                                  <Grid item xs={5} style={{zIndex: 1}}>
-                                      <Typography color="secondary" style={{fontWeight: 'bold', fontSize: '20px', lineHeight: '32px', padding: '36px 0 16px'}}>
+                                  <Grid item xs={5} className={classes.homeBannerBox}>
+                                      <Typography color="secondary" className={classes.homeBannerDescription}>
                                           {translations(state.theme.lang, 'descrizione')}
                                       </Typography>
-                                      <table className={classes.ContactsWrapper}>
-                                          <tbody>
-                                              <tr>
-                                                  <td><PinIcon color="secondary" /></td>
-                                                  <td><Typography>
-                                                      Via Arquà 80 - 41125 Modena<br />
-                                                      <span style={{fontWeight: 'normal', fontSize: '.8em'}}>HESPERIA CARPI: Via Tre Febbraio 1/A - 41012 Modena</span>
-                                                  </Typography></td>
-                                              </tr>
-                                              <tr>
-                                                  <td><H24Icon color="secondary" /></td>
-                                                  <td><Typography>{translations(state.theme.lang, 'aperto24')}</Typography></td>
-                                              </tr>
-                                              <tr>
-                                                  <td><PhoneIcon color="secondary" /></td>
-                                                  <td><Typography>
-                                                      059.449111<br />
-                                                      <span style={{fontWeight: 'normal', fontSize: '.8em'}}>HESPERIA CARPI: 059.680330</span>
-                                                  </Typography></td>
-                                              </tr>
-                                          </tbody>
-                                      </table>
+                                      <Button onClick={actions.theme.toggleTuoTempo} variant={"contained"} color="secondary" disableElevation>
+                                          {translations(state.theme.lang, 'prenotareUnaVisita')}
+                                      </Button>
+                                      <Typography variant="h3"  className={classes.homeBannerPhoneText}>
+                                        <span className={classes.homeBannerPhone}>
+                                            <PhoneIcon style={{height: '18px'}} />
+                                        </span>
+                                        059-449.111
+                                      </Typography>
+                                      <Typography color="secondary">
+                                          <Html2React html={translations(state.theme.lang, 'orari')} />
+                                      </Typography>
                                   </Grid>
                                   <Grid item xs={7} style={{position: 'relative'}}>
                                       <div className={classes.bannerHomeImage}>
@@ -202,11 +220,13 @@ const Header = ({ state, actions }) => {
                   <Hidden smDown>
                       <Toolbar style={{justifyContent: 'flex-end'}} disableGutters>
                           {state.theme.menu.map(menuItem => <NavItem key={menuItem[1]} link={menuItem} />)}
-                          <Hidden mdDown>
-                              <Button onClick={actions.theme.toggleTuoTempo} variant={"contained"} color="primary" disableElevation>
-                                  {translations(state.theme.lang, 'prenotareUnaVisita')}
-                              </Button>
-                          </Hidden>
+                          {!isHomepage && (
+                              <Hidden mdDown>
+                                  <Button onClick={actions.theme.toggleTuoTempo} variant={"contained"} color="primary" disableElevation>
+                                      {translations(state.theme.lang, 'prenotareUnaVisita')}
+                                  </Button>
+                              </Hidden>
+                          )}
                       </Toolbar>
                   </Hidden>
               </Container>

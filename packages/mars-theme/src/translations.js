@@ -7,7 +7,7 @@ const translations = (lang, key) => {
         inPrimoPiano: ['Primo piano', 'Featured'],
         comeArrivare: ['come arrivare', 'ho to get there'],
         prenotaOra: ['Prenota ora', 'Book now'],
-        prenotareUnaVisita: ['Prenotare una visita', 'Book a visit'],
+        prenotareUnaVisita: ['Prenota una visita', 'Book a visit'],
         tutteLeNotizie: ['Tutte le notizie', 'All the news'],
         cercaUnaPrestazione: ['Cerca una prestazione', 'Find a service'],
         oppureClicca: ["Oppure clicca sull'iniziale", 'Or click on the intial letter'],
@@ -27,6 +27,7 @@ const translations = (lang, key) => {
         prenotazioneVisite: ['Prenotazione visite', 'Book a visit'],
         fax: ['Fax Centralino', 'Fax Contact Center'],
         richiesta: ['Richiesta cartelle cliniche', 'Request for medical records'],
+        orari: ['dal <b>lunedì</b> al <b>venerdì</b> dalle <b>9</b> alle <b>17</b>', 'from <b>monday</b> to <b>friday 09:00</b> - <b>17:00</b>'],
     }
     switch (lang) {
         case 'en':

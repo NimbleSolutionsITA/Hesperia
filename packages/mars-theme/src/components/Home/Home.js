@@ -46,22 +46,23 @@ const Home = ({ state, actions, libraries }) => {
                         Html2React={Html2React}
                     />
                 )}
-                <HowToBox
+                {/*<HowToBox
                     title={howToTitle}
                     body={howToBody}
                     phone={howToPhone}
                     time={howToTime}
                     Html2React={Html2React}
-                />
+                />*/}
             </Container>
             <Container>
                 <AllTheNews title={translations(state.theme.lang, 'inPrimoPiano')} categories={{it: "158", en: "160"}} />
+                <NewsList size={1} />
                 <div style={{margin: '32px', textAlign: 'center'}}>
                     <Button
                         onClick={() => actions.router.set(pagesMap[5][state.theme.lang][1])}
                         color="primary"
                     >
-                        {pagesMap[5][state.theme.lang][0]}
+                        {translations(state.theme.lang, 'tutteLeNotizie')}
                     </Button>
                 </div>
                 <BottomBoxes

@@ -44,11 +44,11 @@ const useStyles = makeStyles( {
     }
 });
 
-const NewsList = ({ state, libraries, actions }) => {
+const NewsList = ({ state, libraries, actions, size = 3 }) => {
     const classes = useStyles();
     const [slideChunks, setSlideChunks] = useState(null)
 
-    const chunkSize = 3;
+    const chunkSize = size;
 
     React.useEffect(() => {
         async function fetchFeaturedNews() {

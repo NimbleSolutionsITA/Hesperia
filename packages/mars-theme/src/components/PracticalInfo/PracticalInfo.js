@@ -65,8 +65,8 @@ const PracticalInfo = ({state, libraries}) => {
 
             return Object.values(state.source['practical_info']).filter(info => {
                 if(state.theme.lang === 'en')
-                    return info.polylang_current_lang === "en_GB"
-                return info.polylang_current_lang === "it_IT"
+                    return info.link.startsWith('/en/')
+                return !info.link.startsWith('/en/')
             })
         }
         fetchPracticalInfos().then(resInfos => setPracticalInfos(resInfos))

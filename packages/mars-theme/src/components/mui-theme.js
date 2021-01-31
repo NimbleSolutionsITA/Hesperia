@@ -8,7 +8,7 @@ const breakpoints = createBreakpoints({})
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: '#1F407D',
+            main: '#375172',
         },
         secondary: {
             main: '#E9ECF2',
@@ -85,10 +85,13 @@ const theme = createMuiTheme({
                 textDecoration: 'underline',
             },
             contained: {
-                color: '#1F407D',
+                color: '#375172',
                 textDecoration: 'none',
                 fontWeight: 'bold',
                 backgroundColor: '#E9ECF2',
+            },
+            containedSecondary: {
+                color: '#375172',
             }
         },
         MuiAlert: {
@@ -107,7 +110,7 @@ const theme = createMuiTheme({
             root: {
                 paddingLeft: '16px',
                 borderRadius: '50px',
-                borderColor: '#1F407D',
+                borderColor: '#375172',
                 background: '#F6F9FC'
             }
         }

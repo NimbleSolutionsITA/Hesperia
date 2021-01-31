@@ -16,7 +16,18 @@ const useStyles = makeStyles({
         display: 'flex',
         borderRadius: '8px',
         height: '100%',
-        position: 'relative'
+        position: 'relative',
+        backgroundColor: '#F6F9FC',
+        flexDirection: 'row-reverse'
+    },
+    root2: {
+        display: 'flex',
+        borderRadius: '8px',
+        height: '100%',
+        position: 'relative',
+        color: '#ffffff',
+        backgroundColor: '#1F407D',
+        flexDirection: 'row-reverse'
     },
     content: {
         padding: '32px 40px',
@@ -41,6 +52,15 @@ const useStyles = makeStyles({
             marginRight: 0,
         }
     },
+    contentBox: {
+        display: 'flex',
+        flexDirection: 'column',
+        height: '100%'
+    },
+    contentBody: {
+        flexGrow: 1,
+        marginBottom: '32px'
+    }
 });
 
 const BottomBoxes = ({
@@ -64,13 +84,13 @@ const BottomBoxes = ({
             <Grid container spacing={4} justify="center">
                 {isBox1 && (
                     <Grid item xs={10}>
-                        <Card className={classes.root} style={{backgroundColor: '#F6F9FC', flexDirection: 'row-reverse'}}>
+                        <Card className={classes.root}>
                             <CardContent classes={{root: classes.content}}>
-                                <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
+                                <div className={classes.contentBox}>
                                     <Typography component="h4" variant="h4" style={{fontWeight: 'bold'}}>
                                         {titleBox1}
                                     </Typography>
-                                    <div style={{flexGrow: 1, marginBottom: '32px'}}>
+                                    <div className={classes.contentBody}>
                                         {bodyBox1}
                                     </div>
                                     <div className={classes.actionButtons}>
@@ -87,13 +107,13 @@ const BottomBoxes = ({
                 )}
                 {isBox2 && (
                     <Grid item xs={10}>
-                        <Card className={classes.root} style={{color: '#ffffff', backgroundColor: '#1F407D', flexDirection: 'row-reverse'}}>
+                        <Card className={classes.root2}>
                             <CardContent classes={{root: classes.content}}>
-                                <div style={{display: 'flex', flexDirection: 'column', height: '100%'}}>
+                                <div className={classes.contentBox}>
                                     <Typography component="h4" variant="h4" style={{fontWeight: 'bold'}}>
                                         {titleBox2}
                                     </Typography>
-                                    <div style={{flexGrow: 1, marginBottom: '32px'}}>
+                                    <div className={classes.contentBody}>
                                         {bodyBox2}
                                     </div>
                                     <div className={classes.actionButtons}>
